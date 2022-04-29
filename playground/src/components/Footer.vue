@@ -9,7 +9,7 @@
       class="icon-btn"
       i-carbon-logo-github
       rel="noreferrer"
-      href="https://github.com/guygubaby/monorepo-starter"
+      href="https://github.com/guygubaby/scrollbar"
       target="_blank"
       title="GitHub"
     />
