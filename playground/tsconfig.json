@@ -14,9 +14,9 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"],
-      "core/*": ["../packages/core/src/*"],
+      "@bryce-loskie/scrollbar": ["../packages/core/src/index"]
     },
-    "types": ["vite/client", "node", "vite-plugin-pages/client"],
+    "types": ["vite/client", "node", "vite-plugin-pages/client"]
   },
   "exclude": ["dist", "node_modules"],
   "include": [

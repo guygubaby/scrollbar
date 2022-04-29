@@ -1,4 +1,4 @@
-import { Options } from 'tsup'
+import type { Options } from 'tsup'
 
 const options: Options = {
   splitting: false,
@@ -6,9 +6,7 @@ const options: Options = {
   clean: true,
   format: ['cjs', 'esm'],
   dts: true,
-  entryPoints: [
-    'src/index.ts',
-  ],
+  entryPoints: ['src/index.ts'],
   external: [],
 }
 

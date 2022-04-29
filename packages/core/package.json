@@ -1,6 +1,6 @@
 {
-  "name": "core",
-  "version": "0.0.0",
+  "name": "@bryce-loskie/scrollbar",
+  "version": "0.0.1-beta.2",
   "description": "",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -9,7 +9,7 @@
     ".": {
       "require": "./dist/index.js",
       "import": "./dist/index.mjs",
-      "types": "./dist/index.d.ts"      
+      "types": "./dist/index.d.ts"
     }
   },
   "scripts": {
@@ -19,5 +19,8 @@
   },
   "keywords": [],
   "author": "guygubaby@gmail.com",
-  "license": "MIC"
+  "license": "MIC",
+  "devDependencies": {
+    "@bryce-loskie/utils": "^0.1.28"
+  }
 }

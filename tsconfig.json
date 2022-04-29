@@ -10,7 +10,7 @@
     "resolveJsonModule": true,
     "skipDefaultLibCheck": true,
     "paths": {
-      "core": ["./packages/core/src/index.ts"]
+      "@bryce-loskie/scrollbar": ["./packages/core/src/index"]
     }
   },
   "exclude": ["**/dist/**", "**/node_modules/**"]

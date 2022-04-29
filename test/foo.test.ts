@@ -1,5 +1,6 @@
-import { foo } from 'core'
+import { expect, test } from 'vitest'
 
-test('test foo', () => {
-  expect(foo).toBe('foo')
+test('foo', () => {
+  expect('foo').toEqual('foo')
+  expect('foo').toMatchSnapshot()
 })
