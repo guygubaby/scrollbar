@@ -1,7 +1,10 @@
 {
   "name": "@bryce-loskie/scrollbar",
-  "version": "0.0.1-beta.3",
-  "description": "Opinionated scrollbar style for the web",
+  "version": "0.0.1",
+  "description": "Scrollbar style util for the web",
+  "files": [
+    "dist"
+  ],
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
@@ -29,9 +32,16 @@
   "keywords": [
     "scrollbar"
   ],
-  "author": "guygubaby@gmail.com",
-  "license": "MIC",
-  "devDependencies": {
-    "@bryce-loskie/utils": "^0.1.28"
+  "funding": "https://github.com/sponsors/guygubaby",
+  "author": "guygubaby <guygubaby@gmail.com>",
+  "license": "MIT",
+  "sideEffects": false,
+  "bugs": {
+    "url": "https://github.com/guygubaby/scrollbar/issues"
+  },
+  "homepage": "https://github.com/guygubaby/scrollbar#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/guygubaby/scrollbar.git"
   }
 }
