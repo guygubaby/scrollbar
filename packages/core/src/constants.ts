@@ -7,6 +7,7 @@ export const defaultOptions: Required<ScrollbarOptions> = {
   scrollbarThumbRadius: '4px',
   scrollbarTrackColor: '#f5f5f5',
   scrollbarThumbColor: '#ddd',
+  scrollbarThumbHoverColor: '#aaa',
   varPrefix: '',
   name: '',
 }

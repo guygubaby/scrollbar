@@ -62,6 +62,7 @@ defineScrollbar()
 defineScrollbar({
   name: 'custom-thumb',
   scrollbarThumbColor: 'gray',
+  scrollbarThumbHoverColor: 'red',
 })
 
 defineScrollbar({

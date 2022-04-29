@@ -36,6 +36,7 @@ const generateCss = ({
     scrollbarThumbRadius,
     scrollbarTrackColor,
     scrollbarThumbColor,
+    scrollbarThumbHoverColor,
     varPrefix,
   } = options
 
@@ -46,6 +47,7 @@ const generateCss = ({
     ${resolveVar('thumb-radius', varPrefix)}: ${scrollbarThumbRadius};
     ${resolveVar('track-color', varPrefix)}: ${scrollbarTrackColor};
     ${resolveVar('thumb-color', varPrefix)}: ${scrollbarThumbColor};
+    ${resolveVar('thumb-hover-color', varPrefix)}: ${scrollbarThumbHoverColor};
     `
 
   const selector = forRoot ? ':root' : name ? `[scrollbar~="${name}"]` : ''
@@ -54,7 +56,6 @@ const generateCss = ({
 
   return `
   ${selector} {
-    overflow: auto;
     ${variables.trim()}
   }
   `
@@ -77,25 +78,31 @@ const generateBaseScrollbarStyle = (options: Required<ScrollbarOptions>) => {
   ::-webkit-scrollbar-thumb {
     background: var(${resolveVar('thumb-color', varPrefix)});
     border-radius: var(${resolveVar('thumb-radius', varPrefix)}, 0);
+    transition: background 0.6s ease-in-out;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(${resolveVar('thumb-hover-color', varPrefix)});
   }
 `
   return css
 }
 
+// css variables for :root selector
+const rootVariables = generateCss({
+  options: defaultOptions,
+  forRoot: true,
+})
+
+// base style for all scrollbars
+const baseStyle = generateBaseScrollbarStyle(defaultOptions)
+
 let isPending = false
 
 const generateAllStyle = () => {
-  const cssRessult: string[] = []
+  const cssRessult: string[] = [rootVariables, baseStyle]
 
-  const rootVariables = generateCss({
-    options: defaultOptions,
-    forRoot: true,
-  })
-  cssRessult.push(rootVariables)
-
-  const baseStyle = generateBaseScrollbarStyle(defaultOptions)
-  cssRessult.push(baseStyle)
-
+  // generate style for each external options from user config
   externalOptionList.forEach((options) => {
     const variables = generateCss({ options })
     cssRessult.push(variables)

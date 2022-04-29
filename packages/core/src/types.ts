@@ -2,12 +2,15 @@ export interface ScrollbarOptions {
   /**
    * Scoped scrollbar name, can be used with the scrollbar attribute.
    * 
-   * ```
+   * ```html
+   * <div p="4" w="50" overflow="auto" scrollbar="custom-thumb"> </div>
+   * <script>
       import { defineScrollbar } from '@bryce-loskie/scrollbar'
     * defineScrollbar({
         name: 'custom-thumb',
         scrollbarThumbColor: 'gray',
       })
+      </script>
     * ```
       And then in html tag add the attribute: `scrollbar="foo"`
    */
@@ -42,6 +45,11 @@ export interface ScrollbarOptions {
    * @default '#ddd'
    */
   scrollbarThumbColor?: string
+  /**
+   * scrollbar thumb hovered background color
+   * @default '#aaa'
+   */
+  scrollbarThumbHoverColor?: string
   /**
    * css variable prefix
    * @default ''

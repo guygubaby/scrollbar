@@ -53,10 +53,7 @@ importers:
       vue-router: 4.0.14_vue@3.2.33
 
   packages/core:
-    specifiers:
-      '@bryce-loskie/utils': ^0.1.28
-    devDependencies:
-      '@bryce-loskie/utils': 0.1.28
+    specifiers: {}
 
   playground:
     specifiers: {}
@@ -191,12 +188,6 @@ packages:
     transitivePeerDependencies:
       - supports-color
       - typescript
-    dev: true
-
-  /@bryce-loskie/utils/0.1.28:
-    resolution: {integrity: sha512-3kpJF0crPIzbAtuRDGEJF7R+C3C5MWObGV0koMe87raNeRe+MC7jmHXLyMWFSk7HHsy2riPu7D65lUVu3cqP6w==}
-    dependencies:
-      '@types/throttle-debounce': 4.0.0
     dev: true
 
   /@eslint/eslintrc/1.2.2:
@@ -342,10 +333,6 @@ packages:
 
   /@types/normalize-package-data/2.4.1:
     resolution: {integrity: sha512-Gj7cI7z+98M282Tqmp2K5EIsoouUEzbBJhQQzDE3jSIRk6r9gsz0oUokqIUR4u1R3dMHo0pDHM7sNOHyhulypw==}
-    dev: true
-
-  /@types/throttle-debounce/4.0.0:
-    resolution: {integrity: sha512-BZ1Y2nf1U3qj9MNWrlTG3+FWfFS8xfG2DA0ypiZ1pBUiO8WEvEjNTmQuecnYDtQvegRojeKh+iwNK2NjJ8a3YQ==}
     dev: true
 
   /@types/unist/2.0.6:
