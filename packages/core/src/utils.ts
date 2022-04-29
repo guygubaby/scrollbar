@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { defaultOptions } from './constants'
 import type { ScrollbarOptions } from './types'
 
@@ -48,6 +49,8 @@ const generateCss = ({
     ${resolveVar('track-color', varPrefix)}: ${scrollbarTrackColor};
     ${resolveVar('thumb-color', varPrefix)}: ${scrollbarThumbColor};
     ${resolveVar('thumb-hover-color', varPrefix)}: ${scrollbarThumbHoverColor};
+    scrollbar-color: var(${resolveVar('thumb-color', varPrefix)}) var(${resolveVar('track-color', varPrefix)});
+    scrollbar-width: thin;
     `
 
   const selector = forRoot ? ':root' : name ? `[scrollbar~="${name}"]` : ''
