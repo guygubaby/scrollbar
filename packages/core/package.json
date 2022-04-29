@@ -1,0 +1,23 @@
+{
+  "name": "core",
+  "version": "0.0.0",
+  "description": "",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "require": "./dist/index.js",
+      "import": "./dist/index.mjs",
+      "types": "./dist/index.d.ts"      
+    }
+  },
+  "scripts": {
+    "dev": "pnpm build -- --watch",
+    "build": "tsup",
+    "start": "esno src/index.ts"
+  },
+  "keywords": [],
+  "author": "guygubaby@gmail.com",
+  "license": "MIC"
+}
