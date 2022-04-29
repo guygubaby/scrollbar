@@ -1,7 +1,7 @@
 {
   "name": "@bryce-loskie/scrollbar",
-  "version": "0.0.1-beta.2",
-  "description": "",
+  "version": "0.0.1-beta.3",
+  "description": "Opinionated scrollbar style for the web",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
@@ -12,12 +12,23 @@
       "types": "./dist/index.d.ts"
     }
   },
+  "typesVersions": {
+    "*": {
+      "*": [
+        "./dist/*",
+        "./dist/index.d.ts"
+      ]
+    }
+  },
   "scripts": {
+    "prepublishOnly": "pnpm build",
     "dev": "pnpm build -- --watch",
     "build": "tsup",
     "start": "esno src/index.ts"
   },
-  "keywords": [],
+  "keywords": [
+    "scrollbar"
+  ],
   "author": "guygubaby@gmail.com",
   "license": "MIC",
   "devDependencies": {
