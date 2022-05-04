@@ -1,20 +1,15 @@
 import { defaultDarkOptions, defaultOptions } from './constants'
 import type { ScrollbarOptions } from './types'
 
-const resolveOptions = (options?: ScrollbarOptions) => ({
-  ...defaultOptions,
-  ...(options || {}),
-})
-
+let isPending = false
 const styleTag = document.createElement('style')
 const head = document.head || document.getElementsByTagName('head')[0]
 const externalOptionList: Required<ScrollbarOptions>[] = []
 
-const mountStyle = (css: string) => {
-  styleTag.textContent = css
-  if (!head.contains(styleTag))
-    head.appendChild(styleTag)
-}
+const resolveOptions = (options?: ScrollbarOptions) => ({
+  ...defaultOptions,
+  ...(options || {}),
+})
 
 const resolveVar = (name: string) => {
   return `--scrollbar-${name}`
@@ -125,43 +120,8 @@ const generateScrollbarStyle = () => {
   return css
 }
 
-// base style for all scrollbars
-const baseStyle = generateScrollbarStyle()
-
-let isPending = false
-
-const generateAllStyle = () => {
-  const cssRessult: string[] = [baseStyle]
-
-  // generate style for each external options from user config
-  externalOptionList.forEach((options) => {
-    const variables = generateCss(options)
-    const darkVariables = generateDarkCss(options)
-    cssRessult.push(variables, darkVariables)
-  })
-
-  const css = cssRessult.filter(Boolean).join('\n')
-
-  // minify css by default
-  mountStyle(minify(css))
-
-  isPending = false
-
-  return css
-}
-
-const throttledGenerateAllStyle = () => {
-  if (isPending) return
-
-  isPending = true
-  // use raf as a throttle
-  window.requestAnimationFrame(generateAllStyle)
-}
-
-/**
- * Define scrollbar style
- */
-export const defineScrollbar = (options?: ScrollbarOptions) => {
+// note: 预处理选项
+const preProcessOptions = (options?: ScrollbarOptions) => {
   const finalOptions = resolveOptions(options)
 
   const oldOptionIdx = externalOptionList.findIndex(item => item.name === finalOptions.name)
@@ -172,6 +132,48 @@ export const defineScrollbar = (options?: ScrollbarOptions) => {
     externalOptionList.splice(oldOptionIdx, 1, finalOptions)
   else
     externalOptionList.push(finalOptions)
+}
 
-  throttledGenerateAllStyle()
+const generateCssVars = () => {
+  const cssRessult: string[] = []
+
+  // generate style for each external options from user config
+  externalOptionList.forEach((options) => {
+    const variables = generateCss(options)
+    const darkVariables = generateDarkCss(options)
+    cssRessult.push(variables, darkVariables)
+  })
+
+  const css = cssRessult.filter(Boolean).join('\n')
+  isPending = false
+
+  return css
+}
+
+const mountStyle = (css: string) => {
+  styleTag.textContent = css
+  if (!head.contains(styleTag))
+    head.appendChild(styleTag)
+}
+
+// note: 滚动条样式处理流程
+const generateStyle = () => {
+  if (isPending) return
+
+  isPending = true
+  // use raf as a throttle
+  window.requestAnimationFrame(() => {
+    const css = generateScrollbarStyle()
+    const cssVars = generateCssVars()
+
+    mountStyle(minify(css + cssVars))
+  })
+}
+
+/**
+ * Define scrollbar style
+ */
+export const defineScrollbar = (options?: ScrollbarOptions) => {
+  preProcessOptions(options)
+  generateStyle()
 }
