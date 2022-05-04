@@ -1,7 +1,7 @@
 export interface ScrollbarOptions {
   /**
    * Scoped scrollbar name, can be used with the scrollbar attribute.
-   * 
+   *
    * ```html
    * <div p="4" w="50" overflow="auto" scrollbar="custom-thumb"> </div>
    * <script>
@@ -19,40 +19,35 @@ export interface ScrollbarOptions {
    * scrollbar width
    * @default '8px'
    */
-  scrollbarWidth?: string
+  width?: string
   /**
    * scrollbar height
    * @default '8px'
    */
-  scrollbarHeight?: string
+  height?: string
   /**
    * scrollbar track radius
    * @default '4px'
    */
-  scrollbarTrackRadius?: string
+  trackRadius?: string
   /**
    * scrollbar thumb radius
    * @default '4px'
    */
-  scrollbarThumbRadius?: string
+  thumbRadius?: string
   /**
    * scrollbar track background color
    * @default '#f5f5f5'
    */
-  scrollbarTrackColor?: string
+  trackColor?: string
   /**
    * scrollbar thumb background color
-   * @default '#ddd'
+   * @default '#ccc'
    */
-  scrollbarThumbColor?: string
+  thumbColor?: string
   /**
    * scrollbar thumb hovered background color
-   * @default '#aaa'
+   * @default '#999'
    */
-  scrollbarThumbHoverColor?: string
-  /**
-   * css variable prefix
-   * @default ''
-   */
-  varPrefix?: string
+  thumbHoverColor?: string
 }

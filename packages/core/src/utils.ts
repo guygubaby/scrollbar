@@ -1,8 +1,7 @@
-/* eslint-disable prettier/prettier */
 import { defaultOptions } from './constants'
 import type { ScrollbarOptions } from './types'
 
-const defineOptions = (options?: ScrollbarOptions) => ({
+const resolveOptions = (options?: ScrollbarOptions) => ({
   ...defaultOptions,
   ...(options || {}),
 })
@@ -13,49 +12,39 @@ const externalOptionList: Required<ScrollbarOptions>[] = []
 
 const mountStyle = (css: string) => {
   styleTag.textContent = css
-  if (!head.contains(styleTag)) {
+  if (!head.contains(styleTag))
     head.appendChild(styleTag)
-  }
 }
 
-const resolveVar = (name: string, prefix: string) => {
-  return `--${prefix ? `${prefix}-` : ''}scrollbar-${name}`
+const resolveVar = (name: string) => {
+  return `--scrollbar-${name}`
 }
 
-const generateCss = ({
-  options,
-  forRoot,
-}: {
-  options: Required<ScrollbarOptions>
-  forRoot?: boolean
-}) => {
+const generateCss = (options: Required<ScrollbarOptions>) => {
   const {
     name,
-    scrollbarWidth,
-    scrollbarHeight,
-    scrollbarTrackRadius,
-    scrollbarThumbRadius,
-    scrollbarTrackColor,
-    scrollbarThumbColor,
-    scrollbarThumbHoverColor,
-    varPrefix,
+    width,
+    height,
+    trackRadius,
+    thumbRadius,
+    trackColor,
+    thumbColor,
+    thumbHoverColor,
   } = options
 
+  const selector = name ? `[scrollbar~="${name}"]` : ':root'
+
   const variables = `
-    ${resolveVar('width', varPrefix)}: ${scrollbarWidth};
-    ${resolveVar('height', varPrefix)}: ${scrollbarHeight};
-    ${resolveVar('track-radius', varPrefix)}: ${scrollbarTrackRadius};
-    ${resolveVar('thumb-radius', varPrefix)}: ${scrollbarThumbRadius};
-    ${resolveVar('track-color', varPrefix)}: ${scrollbarTrackColor};
-    ${resolveVar('thumb-color', varPrefix)}: ${scrollbarThumbColor};
-    ${resolveVar('thumb-hover-color', varPrefix)}: ${scrollbarThumbHoverColor};
-    scrollbar-color: var(${resolveVar('thumb-color', varPrefix)}) var(${resolveVar('track-color', varPrefix)});
+    ${resolveVar('width')}: ${width};
+    ${resolveVar('height')}: ${height};
+    ${resolveVar('track-radius')}: ${trackRadius};
+    ${resolveVar('thumb-radius')}: ${thumbRadius};
+    ${resolveVar('track-color')}: ${trackColor};
+    ${resolveVar('thumb-color')}: ${thumbColor};
+    ${resolveVar('thumb-hover-color')}: ${thumbHoverColor};
+    scrollbar-color: var(${resolveVar('thumb-color')}) var(${resolveVar('track-color')});
     scrollbar-width: thin;
     `
-
-  const selector = forRoot ? ':root' : name ? `[scrollbar~="${name}"]` : ''
-
-  if (!selector) return ''
 
   return `
   ${selector} {
@@ -64,50 +53,41 @@ const generateCss = ({
   `
 }
 
-const generateBaseScrollbarStyle = (options: Required<ScrollbarOptions>) => {
-  const { varPrefix } = options
-
+const generateScrollbarStyle = () => {
   const css = `
   ::-webkit-scrollbar {
-    width: var(${resolveVar('width', varPrefix)});
-    height: var(${resolveVar('height', varPrefix)});
+    width: var(${resolveVar('width')});
+    height: var(${resolveVar('height')});
   }
 
   ::-webkit-scrollbar-track {
-    background: var(${resolveVar('track-color', varPrefix)});
-    border-radius: var(${resolveVar('track-radius', varPrefix)}, 0);
+    background: var(${resolveVar('track-color')});
+    border-radius: var(${resolveVar('track-radius')});
   }
 
   ::-webkit-scrollbar-thumb {
-    background: var(${resolveVar('thumb-color', varPrefix)});
-    border-radius: var(${resolveVar('thumb-radius', varPrefix)}, 0);
-    transition: background 0.6s ease-in-out;
+    background: var(${resolveVar('thumb-color')});
+    border-radius: var(${resolveVar('thumb-radius')});
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: var(${resolveVar('thumb-hover-color', varPrefix)});
+    background: var(${resolveVar('thumb-hover-color')});
   }
 `
   return css
 }
 
-// css variables for :root selector
-const rootVariables = generateCss({
-  options: defaultOptions,
-  forRoot: true,
-})
-
 // base style for all scrollbars
-const baseStyle = generateBaseScrollbarStyle(defaultOptions)
+const baseStyle = generateScrollbarStyle()
 
 let isPending = false
 
 const generateAllStyle = () => {
-  const cssRessult: string[] = [rootVariables, baseStyle]
+  const cssRessult: string[] = [baseStyle]
 
   // generate style for each external options from user config
   externalOptionList.forEach((options) => {
-    const variables = generateCss({ options })
+    const variables = generateCss(options)
     cssRessult.push(variables)
   })
 
@@ -121,23 +101,27 @@ const generateAllStyle = () => {
 }
 
 const throttledGenerateAllStyle = () => {
-  if (!isPending) {
-    isPending = true
-    // use raf as a throttle
-    window.requestAnimationFrame(generateAllStyle)
-  }
+  if (isPending) return
+
+  isPending = true
+  // use raf as a throttle
+  window.requestAnimationFrame(generateAllStyle)
 }
 
+/**
+ * Define scrollbar style
+ */
 export const defineScrollbar = (options?: ScrollbarOptions) => {
-  const finalOptions = defineOptions(options)
+  const finalOptions = resolveOptions(options)
 
-  const oldOption = externalOptionList.find(
-    (item) => item.name === finalOptions.name
-  )
+  const oldOptionIdx = externalOptionList.findIndex(item => item.name === finalOptions.name)
 
-  if (!oldOption) {
+  const shouldReplace = oldOptionIdx !== -1 // existing options should be replaced
+
+  if (shouldReplace)
+    externalOptionList.splice(oldOptionIdx, 1, finalOptions)
+  else
     externalOptionList.push(finalOptions)
-  }
 
   throttledGenerateAllStyle()
 }

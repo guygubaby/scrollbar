@@ -1,13 +1,12 @@
 import type { ScrollbarOptions } from './types'
 
 export const defaultOptions: Required<ScrollbarOptions> = {
-  scrollbarWidth: '8px',
-  scrollbarHeight: '8px',
-  scrollbarTrackRadius: '4px',
-  scrollbarThumbRadius: '4px',
-  scrollbarTrackColor: '#f5f5f5',
-  scrollbarThumbColor: '#ddd',
-  scrollbarThumbHoverColor: '#aaa',
-  varPrefix: '',
+  width: '8px',
+  height: '8px',
+  trackRadius: '4px',
+  thumbRadius: '4px',
+  trackColor: '#f5f5f5',
+  thumbColor: '#ccc',
+  thumbHoverColor: '#999',
   name: '',
 }

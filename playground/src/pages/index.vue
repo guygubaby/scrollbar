@@ -14,23 +14,33 @@
       rounded="~"
     >
       <div p="4" w="50" overflow="auto">
-        <div w="200">default horizontal scrollbar</div>
+        <div w="200">
+          default horizontal scrollbar
+        </div>
       </div>
 
       <div p="4" w="50" overflow="auto" scrollbar="custom-thumb">
-        <div w="200">custom thumb color</div>
+        <div w="200">
+          custom thumb color
+        </div>
       </div>
 
       <div p="4" w="50" overflow="auto" scrollbar="custom-thumb-track">
-        <div w="200">custom thumb and track</div>
+        <div w="200">
+          custom thumb and track
+        </div>
       </div>
 
       <div p="4" w="50" overflow="auto" scrollbar="custom-height">
-        <div w="200">custom height</div>
+        <div w="200">
+          custom height
+        </div>
       </div>
 
       <div p="4" w="50" overflow="auto" scrollbar="custom-radius">
-        <div w="200">custom-radius</div>
+        <div w="200">
+          custom-radius
+        </div>
       </div>
     </div>
 
@@ -44,11 +54,15 @@
       rounded="~"
     >
       <div p="4" h="50" flex="1" overflow="auto">
-        <div h="200">default vertical scrollbar</div>
+        <div h="200">
+          default vertical scrollbar
+        </div>
       </div>
 
       <div p="4" h="50" flex="1" overflow="auto" scrollbar="custom-width">
-        <div h="200">custom width</div>
+        <div h="200">
+          custom width
+        </div>
       </div>
     </div>
   </div>
@@ -61,30 +75,36 @@ defineScrollbar()
 
 defineScrollbar({
   name: 'custom-thumb',
-  scrollbarThumbColor: 'gray',
-  scrollbarThumbHoverColor: 'red',
+  thumbColor: 'gray',
+  thumbHoverColor: 'red',
 })
 
 defineScrollbar({
   name: 'custom-thumb-track',
-  scrollbarThumbColor: 'rgb(15,118,110)',
-  scrollbarTrackColor: 'rgb(31,41,55)',
+  thumbColor: 'rgb(15,118,110)',
+  trackColor: 'rgb(31,41,55)',
 })
 
 defineScrollbar({
   name: 'custom-height',
-  scrollbarHeight: '20px',
+  height: '20px',
 })
 
 defineScrollbar({
   name: 'custom-radius',
-  scrollbarHeight: '20px',
-  scrollbarThumbRadius: '10px',
-  scrollbarTrackRadius: '10px',
+  height: '20px',
+  thumbRadius: '10px',
+  trackRadius: '10px',
 })
 
 defineScrollbar({
   name: 'custom-width',
-  scrollbarWidth: '20px',
+  width: '20px',
+})
+
+// same name will cover previous definition
+defineScrollbar({
+  name: 'custom-width',
+  width: '14px',
 })
 </script>

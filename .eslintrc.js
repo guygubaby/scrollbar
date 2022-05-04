@@ -1,5 +1,5 @@
 module.exports = {
-  extends: ['@bryce-loskie', 'prettier', 'plugin:prettier/recommended'],
+  extends: ['@bryce-loskie'],
   rules: {
     '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
     'no-console': 'off',

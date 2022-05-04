@@ -17,7 +17,7 @@ pnpm i @bryce-loskie/scrollbar
   <div w="200">default horizontal scrollbar</div>
 </div>
 
-<div p="4" w="50" overflow="auto" scrollbar="custom-thumb">
+<div p="4" w="50" overflow="auto" scrollbar="foo">
   <div w="200">custom thumb color</div>
 </div>
 
@@ -27,8 +27,8 @@ import { defineScrollbar } from '@bryce-loskie/scrollbar'
 defineScrollbar()
 
 defineScrollbar({
-  name: 'custom-thumb', // use with `scrollbar="custom-thumb"` attribute
-  scrollbarThumbColor: 'gray',
+  name: 'foo', // use with `scrollbar="foo"` attribute
+  thumbColor: 'gray',
 })
 </script>
 ```
@@ -37,6 +37,7 @@ defineScrollbar({
 
 - [x] thumb hover color
 - [ ] dark mode
+- [ ] minify generated css code
 
 ## License
 
