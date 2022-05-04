@@ -52,12 +52,6 @@ importers:
       vue: 3.2.33
       vue-router: 4.0.14_vue@3.2.33
 
-  packages/core:
-    specifiers: {}
-
-  playground:
-    specifiers: {}
-
 packages:
 
   /@antfu/install-pkg/0.1.0:

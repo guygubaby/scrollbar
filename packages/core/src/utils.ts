@@ -20,6 +20,10 @@ const resolveVar = (name: string) => {
   return `--scrollbar-${name}`
 }
 
+const minify = (css: string) => {
+  return css.replace(/\s+/g, ' ').replace(/\s*([{}])\s*/g, '$1')
+}
+
 const generateCss = (options: Required<ScrollbarOptions>) => {
   const {
     name,
@@ -93,7 +97,8 @@ const generateAllStyle = () => {
 
   const css = cssRessult.filter(Boolean).join('\n')
 
-  mountStyle(css)
+  // minify css by default
+  mountStyle(minify(css))
 
   isPending = false
 
