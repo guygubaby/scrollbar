@@ -51,6 +51,6 @@ export interface ScrollbarOptions {
    */
   thumbHoverColor?: string
 
-  darkMode?: boolean | 'class' | 'media'
+  darkMode?: false | 'class' | 'media'
   darkOptions?: Pick<ScrollbarOptions, 'trackColor' | 'thumbColor' | 'thumbHoverColor'>
 }

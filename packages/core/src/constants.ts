@@ -15,6 +15,6 @@ export const defaultOptions: Required<ScrollbarOptions> = {
   thumbColor: '#ccc',
   thumbHoverColor: '#999',
   name: '',
-  darkMode: true,
+  darkMode: false,
   darkOptions: defaultDarkOptions,
 }
