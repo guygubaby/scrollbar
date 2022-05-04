@@ -1,7 +1,6 @@
 import { defaultDarkOptions, defaultOptions } from './constants'
 import type { ScrollbarOptions } from './types'
 
-let isPending = false
 const styleTag = document.createElement('style')
 const head = document.head || document.getElementsByTagName('head')[0]
 const externalOptionList: Required<ScrollbarOptions>[] = []
@@ -16,7 +15,7 @@ const resolveVar = (name: string) => {
 }
 
 const minify = (css: string) => {
-  return css.replace(/\s+/g, ' ').replace(/\s*([{}])\s*/g, '$1')
+  return css.replace(/\s+/g, ' ').replace(/\s*([{}])\s*/g, '$1').trim()
 }
 
 const generateDarkCss = (options: Required<ScrollbarOptions>) => {
@@ -145,8 +144,6 @@ const generateCssVars = () => {
   })
 
   const css = cssRessult.filter(Boolean).join('\n')
-  isPending = false
-
   return css
 }
 
@@ -156,6 +153,7 @@ const mountStyle = (css: string) => {
     head.appendChild(styleTag)
 }
 
+let isPending = false
 // note: 滚动条样式处理流程
 const generateStyle = () => {
   if (isPending) return
@@ -165,8 +163,8 @@ const generateStyle = () => {
   window.requestAnimationFrame(() => {
     const css = generateScrollbarStyle()
     const cssVars = generateCssVars()
-
     mountStyle(minify(css + cssVars))
+    isPending = false
   })
 }
 
