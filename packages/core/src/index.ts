@@ -1,2 +1,2 @@
 export { defineScrollbar } from './utils'
-export { ScrollbarOptions } from './types'
+export type { ScrollbarOptions } from './types'
