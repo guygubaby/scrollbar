@@ -1,6 +1,6 @@
 {
   "name": "scrollbar-monorepo",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "scrollbar-monorepo",
   "private": true,
   "main": "index.js",
