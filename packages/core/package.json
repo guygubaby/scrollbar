@@ -1,6 +1,6 @@
 {
   "name": "@bryce-loskie/scrollbar",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Scrollbar style util for the web",
   "files": [
     "dist"
