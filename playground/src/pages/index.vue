@@ -71,12 +71,23 @@
 <script setup lang="ts">
 import { defineScrollbar } from '@bryce-loskie/scrollbar'
 
-defineScrollbar()
+defineScrollbar({
+  darkMode: 'media',
+  darkOptions: {
+    // thumbColor: 'red',
+    // trackColor: 'blue',
+  },
+})
 
 defineScrollbar({
   name: 'custom-thumb',
   thumbColor: 'gray',
   thumbHoverColor: 'red',
+  darkMode: 'class',
+  darkOptions: {
+    // thumbColor: 'red',
+    // trackColor: 'blue',
+  },
 })
 
 defineScrollbar({

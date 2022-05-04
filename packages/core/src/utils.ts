@@ -1,4 +1,4 @@
-import { defaultOptions } from './constants'
+import { defaultDarkOptions, defaultOptions } from './constants'
 import type { ScrollbarOptions } from './types'
 
 const resolveOptions = (options?: ScrollbarOptions) => ({
@@ -22,6 +22,50 @@ const resolveVar = (name: string) => {
 
 const minify = (css: string) => {
   return css.replace(/\s+/g, ' ').replace(/\s*([{}])\s*/g, '$1')
+}
+
+const generateDarkCss = (options: Required<ScrollbarOptions>) => {
+  const {
+    name,
+    darkMode,
+    darkOptions,
+  } = options
+
+  if (!darkMode) return ''
+
+  const {
+    trackColor = defaultDarkOptions.trackColor,
+    thumbColor = defaultDarkOptions.thumbColor,
+    thumbHoverColor = defaultDarkOptions.thumbHoverColor,
+  } = darkOptions
+
+  const variables = `
+    ${resolveVar('track-color')}: ${trackColor};
+    ${resolveVar('thumb-color')}: ${thumbColor};
+    ${resolveVar('thumb-hover-color')}: ${thumbHoverColor};
+    `
+
+  if (darkMode === 'class') {
+    const selector = name ? `.dark [scrollbar~="${name}"]` : 'html.dark'
+
+    return `
+    ${selector} {
+      ${variables.trim()}
+    }
+    `
+  }
+  else if (darkMode === 'media') {
+    return `
+    @media (prefers-color-scheme: dark) {
+      :root {
+        ${variables.trim()}
+      }
+    }
+    `
+  }
+  else {
+    return ''
+  }
 }
 
 const generateCss = (options: Required<ScrollbarOptions>) => {
@@ -92,7 +136,8 @@ const generateAllStyle = () => {
   // generate style for each external options from user config
   externalOptionList.forEach((options) => {
     const variables = generateCss(options)
-    cssRessult.push(variables)
+    const darkVariables = generateDarkCss(options)
+    cssRessult.push(variables, darkVariables)
   })
 
   const css = cssRessult.filter(Boolean).join('\n')

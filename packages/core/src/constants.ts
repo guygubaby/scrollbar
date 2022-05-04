@@ -1,5 +1,11 @@
 import type { ScrollbarOptions } from './types'
 
+export const defaultDarkOptions: Required<Pick<ScrollbarOptions, 'trackColor' | 'thumbColor' | 'thumbHoverColor'>> = {
+  trackColor: '#414141',
+  thumbColor: '#ccc',
+  thumbHoverColor: '#999',
+}
+
 export const defaultOptions: Required<ScrollbarOptions> = {
   width: '8px',
   height: '8px',
@@ -9,4 +15,6 @@ export const defaultOptions: Required<ScrollbarOptions> = {
   thumbColor: '#ccc',
   thumbHoverColor: '#999',
   name: '',
+  darkMode: true,
+  darkOptions: defaultDarkOptions,
 }
