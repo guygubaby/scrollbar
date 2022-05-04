@@ -36,7 +36,7 @@ defineScrollbar({
 ## Todo
 
 - [x] thumb hover color
-- [ ] dark mode
+- [x] dark mode
 - [x] minify generated css code
 
 ## License
