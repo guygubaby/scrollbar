@@ -19,9 +19,9 @@
         </div>
       </div>
 
-      <div p="4" w="50" overflow="auto" scrollbar="custom-thumb">
+      <div p="4" w="50" overflow="auto" scrollbar="dark-mode">
         <div w="200">
-          custom thumb color
+          dark mode support
         </div>
       </div>
 
@@ -74,19 +74,19 @@ import { defineScrollbar } from '@bryce-loskie/scrollbar'
 defineScrollbar({
   darkMode: 'media',
   darkOptions: {
-    // thumbColor: 'red',
-    // trackColor: 'blue',
+    thumbColor: 'red',
+    trackColor: 'blue',
   },
 })
 
 defineScrollbar({
-  name: 'custom-thumb',
+  name: 'dark-mode',
   thumbColor: 'gray',
   thumbHoverColor: 'red',
   darkMode: 'class',
   darkOptions: {
-    // thumbColor: 'red',
-    // trackColor: 'blue',
+    thumbColor: 'red',
+    trackColor: 'blue',
   },
 })
 
