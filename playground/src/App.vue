@@ -5,3 +5,16 @@
     <Footer />
   </main>
 </template>
+
+<script lang="ts" setup>
+import { useHead } from '@vueuse/head'
+useHead({
+  title: 'scrollbar | playground',
+  meta: [
+    {
+      name: 'description',
+      content: 'scrollbar playground',
+    },
+  ],
+})
+</script>

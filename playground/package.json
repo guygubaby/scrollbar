@@ -6,9 +6,14 @@
   "main": "index.js",
   "scripts": {
     "dev": "vite",
-    "build": "vite build"
+    "build": "vite-ssg build"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "@vueuse/head": "^0.7.6",
+    "vite-ssg": "^0.20.0",
+    "vue-router": "^4.0.14"
+  }
 }
