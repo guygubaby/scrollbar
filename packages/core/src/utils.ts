@@ -8,7 +8,10 @@ const head = document.head || document.getElementsByTagName('head')[0]
 const externalOptionList: Required<ScrollbarOptions>[] = []
 
 const minify = (css: string) => {
-  return css.replace(/\s+/g, ' ').replace(/\s*([{}])\s*/g, '$1').trim()
+  return css
+    .replace(/\s+/g, ' ')
+    .replace(/\s*([{}])\s*/g, '$1')
+    .trim()
 }
 
 const resolveOptions = (options?: ScrollbarOptions) => ({
@@ -20,7 +23,7 @@ const resolveVar = (name: string) => {
   return `--scrollbar-${name}`
 }
 
-const generateBaseCss = () => {
+export const generateBaseCss = () => {
   const css = `
   ::-webkit-scrollbar {
     width: var(${resolveVar('width')});
@@ -44,7 +47,7 @@ const generateBaseCss = () => {
   return css
 }
 
-const generateVars = (options: Required<ScrollbarOptions>) => {
+export const generateVars = (options: Required<ScrollbarOptions>) => {
   const {
     name,
     width,
@@ -58,16 +61,32 @@ const generateVars = (options: Required<ScrollbarOptions>) => {
 
   const selector = name ? `[scrollbar~="${name}"]` : ':root'
 
+  const isNoScrollbar = width === 0 && height === 0
+
+  const [widthStr, heightStr, trackRadiusStr, thumbRadiusStr] = [
+    width,
+    height,
+    trackRadius,
+    thumbRadius,
+  ].map((item) => {
+    if (typeof item === 'number')
+      return `${item}px`
+
+    return item
+  })
+
   const variables = `
-    ${resolveVar('width')}: ${width};
-    ${resolveVar('height')}: ${height};
-    ${resolveVar('track-radius')}: ${trackRadius};
-    ${resolveVar('thumb-radius')}: ${thumbRadius};
+    ${resolveVar('width')}: ${widthStr};
+    ${resolveVar('height')}: ${heightStr};
+    ${resolveVar('track-radius')}: ${trackRadiusStr};
+    ${resolveVar('thumb-radius')}: ${thumbRadiusStr};
     ${resolveVar('track-color')}: ${trackColor};
     ${resolveVar('thumb-color')}: ${thumbColor};
     ${resolveVar('thumb-hover-color')}: ${thumbHoverColor};
-    scrollbar-color: var(${resolveVar('thumb-color')}) var(${resolveVar('track-color')});
-    scrollbar-width: thin;
+    scrollbar-color: var(${resolveVar('thumb-color')}) var(${resolveVar(
+      'track-color',
+    )});
+    scrollbar-width: ${isNoScrollbar ? 'none' : 'thin'}
     `
 
   return `
@@ -78,13 +97,10 @@ const generateVars = (options: Required<ScrollbarOptions>) => {
 }
 
 const generateDarkVars = (options: Required<ScrollbarOptions>) => {
-  const {
-    name,
-    darkMode,
-    darkOptions,
-  } = options
+  const { name, darkMode, darkOptions } = options
 
-  if (!darkMode) return ''
+  if (!darkMode)
+    return ''
 
   const {
     trackColor = defaultDarkOptions.trackColor,
@@ -123,21 +139,25 @@ const generateDarkVars = (options: Required<ScrollbarOptions>) => {
 
 const processOptions = (options?: ScrollbarOptions) => {
   const finalOptions = resolveOptions(options)
-  const oldOptionIdx = externalOptionList.findIndex(item => item.name === finalOptions.name)
+  const oldOptionIdx = externalOptionList.findIndex(
+    item => item.name === finalOptions.name,
+  )
   const shouldReplace = oldOptionIdx !== -1 // existing options should be replaced
   if (shouldReplace)
     externalOptionList.splice(oldOptionIdx, 1, finalOptions)
-  else
-    externalOptionList.push(finalOptions)
+  else externalOptionList.push(finalOptions)
 }
 
 const generateAllVars = () => {
-  return externalOptionList.reduce((acc, cur) => {
-    const variables = generateVars(cur)
-    const darkVariables = generateDarkVars(cur)
-    acc.push(variables, darkVariables)
-    return acc
-  }, [] as string[]).filter(Boolean).join('\n')
+  return externalOptionList
+    .reduce((acc, cur) => {
+      const variables = generateVars(cur)
+      const darkVariables = generateDarkVars(cur)
+      acc.push(variables, darkVariables)
+      return acc
+    }, [] as string[])
+    .filter(Boolean)
+    .join('\n')
 }
 
 const mountStyle = (css: string) => {
@@ -149,7 +169,8 @@ const mountStyle = (css: string) => {
 let isPending = false
 
 const generateStyle = () => {
-  if (isPending) return
+  if (isPending)
+    return
 
   // schedule a task to generate css
   isPending = true

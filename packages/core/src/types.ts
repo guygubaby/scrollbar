@@ -19,22 +19,22 @@ export interface ScrollbarOptions {
    * scrollbar width
    * @default '8px'
    */
-  width?: string
+  width?: string | number
   /**
    * scrollbar height
    * @default '8px'
    */
-  height?: string
+  height?: string | number
   /**
    * scrollbar track radius
    * @default '4px'
    */
-  trackRadius?: string
+  trackRadius?: string | number
   /**
    * scrollbar thumb radius
    * @default '4px'
    */
-  thumbRadius?: string
+  thumbRadius?: string | number
   /**
    * scrollbar track background color
    * @default '#f5f5f5'
