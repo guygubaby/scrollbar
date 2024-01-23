@@ -19,7 +19,7 @@ test('should generate css', () => {
 
   expect(vars).toMatchInlineSnapshot(`
     "
-      [scrollbar~=\\"custom-thumb\\"] {
+      .scrollbar-custom-thumb,[scrollbar~="custom-thumb"] {
         --scrollbar-width: 0px;
         --scrollbar-height: 4px;
         --scrollbar-track-radius: 3px;

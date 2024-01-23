@@ -59,7 +59,7 @@ export const generateVars = (options: Required<ScrollbarOptions>) => {
     thumbHoverColor,
   } = options
 
-  const selector = name ? `[scrollbar~="${name}"]` : ':root'
+  const selector = name ? `.scrollbar-${name},[scrollbar~="${name}"]` : ':root'
 
   const isNoScrollbar = width === 0 && height === 0
 
@@ -115,7 +115,7 @@ const generateDarkVars = (options: Required<ScrollbarOptions>) => {
     `
 
   if (darkMode === 'class') {
-    const selector = name ? `.dark [scrollbar~="${name}"]` : 'html.dark'
+    const selector = name ? `.dark .scrollbar-${name},[scrollbar~="${name}"]` : 'html.dark'
 
     return `
     ${selector} {

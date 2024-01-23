@@ -25,7 +25,7 @@
         </div>
       </div>
 
-      <div p="4" w="50" overflow="auto" scrollbar="custom-thumb-track">
+      <div p="4" w="50" overflow="auto" class="scrollbar-custom-thumb-track">
         <div w="200">
           custom thumb and track
         </div>
